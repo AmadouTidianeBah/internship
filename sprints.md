@@ -130,7 +130,8 @@ si on n'est pas connecté.
 
 ## Sprint 4 — Offres de stage (lecture) 📋
 
-**Objectif :** lister et consulter les offres. Visible par tous les connectés.
+**Objectif :** lister et consulter les offres. **Public** : accessible même sans être
+connecté (`GET /internships` et `GET /internships/:id` ne demandent pas de token).
 
 - [ ] Page **Liste des offres** : `GET /internships`, afficher titre / entreprise / lieu
 - [ ] Page **Détail d'une offre** : `GET /internships/:id`, route `/internships/:id`

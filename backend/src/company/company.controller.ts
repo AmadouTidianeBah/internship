@@ -4,6 +4,7 @@ import { CompanyService } from './company.service';
 import CreateCompanyDto from './dto/createCompany.dto';
 import UpdateCompanyDto from './dto/updateCompany.dto';
 import { Roles } from 'src/decorators/roles.decorator';
+import { SkipAuth } from 'src/decorators/skipAuth.decorator';
 import { UserRole } from 'src/constant/constants';
 import Playload from 'src/utils/playload.model';
 
@@ -22,6 +23,7 @@ export class CompanyController {
         return await this.companyService.create(user.id, createCompanyDto)
     }
 
+    @SkipAuth()
     @Get()
     async findAll() {
         return await this.companyService.findAll()
@@ -35,6 +37,7 @@ export class CompanyController {
         return await this.companyService.findByUser(user.id)
     }
 
+    @SkipAuth()
     @Get(':id')
     async findOne(@Param('id') id: string) {
         return await this.companyService.findOne(id)

@@ -4,6 +4,7 @@ import { InternshipService } from './internship.service';
 import CreateInternshipDto from './dto/createInternship.dto';
 import UpdateInternshipDto from './dto/updateInternship.dto';
 import { Roles } from 'src/decorators/roles.decorator';
+import { SkipAuth } from 'src/decorators/skipAuth.decorator';
 import { UserRole } from 'src/constant/constants';
 import Playload from 'src/utils/playload.model';
 
@@ -22,11 +23,13 @@ export class InternshipController {
         return await this.internshipService.create(user.id, createInternshipDto)
     }
 
+    @SkipAuth()
     @Get()
     async findAll() {
         return await this.internshipService.findAll()
     }
 
+    @SkipAuth()
     @Get(':id')
     async findOne(@Param('id') id: string) {
         return await this.internshipService.findOne(id)

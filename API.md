@@ -4,8 +4,13 @@ Backend NestJS, base URL par défaut : **`http://localhost:3000`**
 
 ## Authentification
 
-L'API utilise un **JWT Bearer token**. Toutes les routes nécessitent l'en-tête
-`Authorization: Bearer <token>`, **sauf** `/auth/register` et `/auth/login`.
+L'API utilise un **JWT Bearer token**. La plupart des routes nécessitent l'en-tête
+`Authorization: Bearer <token>`.
+
+**Routes publiques (sans token)** : `/auth/register`, `/auth/login`, et la consultation
+des offres et entreprises en lecture (`GET /internships`, `GET /internships/:id`,
+`GET /company`, `GET /company/:id`) — pour qu'un visiteur puisse parcourir le site
+sans compte.
 
 1. `POST /auth/register` pour créer un compte
 2. `POST /auth/login` → récupère `access_token`
@@ -44,9 +49,9 @@ Une route refusée à cause du rôle renvoie **403 Forbidden**.
 
 | Méthode | Endpoint        | Auth | Rôle | Body | Réponse |
 |---------|-----------------|------|------|------|---------|
-| GET  | `/company`      | ✅ | tous | — | `Company[]` |
+| GET  | `/company`      | ❌ | public | — | `Company[]` |
 | GET  | `/company/me`   | ✅ | COMPANY | — | `Company` (avec `internships`) |
-| GET  | `/company/:id`  | ✅ | tous | — | `Company` (avec `internships`) |
+| GET  | `/company/:id`  | ❌ | public | — | `Company` (avec `internships`) |
 | POST | `/company`      | ✅ | COMPANY | `{ name, description, website?, location }` | `Company` |
 | PUT  | `/company`      | ✅ | COMPANY | mêmes champs (optionnels) | `Company` |
 
@@ -56,8 +61,8 @@ Une route refusée à cause du rôle renvoie **403 Forbidden**.
 
 | Méthode | Endpoint            | Auth | Rôle | Body | Réponse |
 |---------|---------------------|------|------|------|---------|
-| GET    | `/internships`      | ✅ | tous | — | `Internship[]` (avec `company`) |
-| GET    | `/internships/:id`  | ✅ | tous | — | `Internship` (avec `company`) |
+| GET    | `/internships`      | ❌ | public | — | `Internship[]` (avec `company`) |
+| GET    | `/internships/:id`  | ❌ | public | — | `Internship` (avec `company`) |
 | POST   | `/internships`      | ✅ | COMPANY | `{ title, description, requirements, location, duration }` | `Internship` |
 | PUT    | `/internships/:id`  | ✅ | COMPANY (propriétaire) | mêmes champs (optionnels) | `Internship` |
 | DELETE | `/internships/:id`  | ✅ | COMPANY (propriétaire) | — | `{ deleted: true }` |
