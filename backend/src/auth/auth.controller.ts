@@ -24,6 +24,6 @@ export class AuthController {
     @Post('login')
     @UseGuards(LocalGuard)
     async login(@Req() req: Request) {
-        return req.user
+        return { access_token: req.user as unknown as string }
     }
 }

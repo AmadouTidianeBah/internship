@@ -35,6 +35,6 @@ export default class UserEntity {
     @OneToMany(() => NotificationEntity, (notification) => notification.user)
     notifications: NotificationEntity[]
 
-    @OneToMany(() => ReviewEntity, (review) => review.internship)
+    @OneToMany(() => ReviewEntity, (review) => review.user)
     reviews: ReviewEntity[]
 }

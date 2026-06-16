@@ -34,7 +34,10 @@ export class AuthService {
             ...userData
         })
 
-        return await this.userRepository.save(user)
+        const savedUser = await this.userRepository.save(user)
+        const { password: _password, ...result } = savedUser
+
+        return result as UserEntity
     }
 
     async validateUser(
