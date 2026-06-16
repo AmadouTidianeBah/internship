@@ -9,6 +9,9 @@ RUN corepack enable && corepack prepare pnpm@10.32.1 --activate
 
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
+# Garantit la compilation de la binaire native de bcrypt (pnpm 10 ne lance pas
+# les scripts d'install par défaut)
+RUN pnpm rebuild bcrypt
 
 COPY . .
 RUN pnpm run build
